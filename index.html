@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sorry Mera Betuu ❤️</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;700;800&family=Rozha+One&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --primary-pink: #ff6584;
+      --soft-blush: #ffeef2;
+      --card-bg: rgba(255, 255, 255, 0.94);
+      --deep-wine: #742a3a;
+      --warm-peach: #ffb8b8;
+      --accent-glow: #ff477e;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      min-height: 100vh;
+      background: radial-gradient(circle at top right, #ffe6eb 0%, #ffccd8 45%, #ffdbe4 100%);
+      font-family: 'Nunito', sans-serif;
+      color: var(--deep-wine);
+      position: relative;
+      overflow-x: hidden;
+      padding-bottom: 50px;
+    }
+
+    .heart-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .floating-heart {
+      position: absolute;
+      bottom: -40px;
+      animation: floatUp linear infinite;
+      opacity: 0.6;
+    }
+
+    @keyframes floatUp {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      10% { opacity: 0.7; }
+      90% { opacity: 0.7; }
+      100% { transform: translateY(-115vh) rotate(360deg); opacity: 0; }
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      width: 92%;
+      max-width: 580px;
+      margin: 20px auto;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 28px;
+      padding: 24px;
+      box-shadow: 0 14px 35px rgba(255, 101, 132, 0.18);
+      border: 2px solid rgba(255, 255, 255, 0.8);
+      backdrop-filter: blur(8px);
+      text-align: center;
+      transition: transform 0.25s ease;
+    }
+
+    h1 {
+      font-family: 'Rozha One', serif;
+      color: #e63963;
+      font-size: 1.85rem;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .subtitle {
+      font-size: 1rem;
+      color: #9c4155;
+      font-weight: 600;
+    }
+
+    .distance-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: #ffe3ea;
+      padding: 6px 14px;
+      border-radius: 50px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #d12753;
+      margin-top: 10px;
+      border: 1px dashed #ff9bb5;
+    }
+
+    .distance-bridge {
+      display: flex;
+      align-items: center;
+      justify-content: space-around;
+      margin: 15px 0 5px;
+      padding: 12px;
+      background: rgba(255, 238, 242, 0.7);
+      border-radius: 20px;
+    }
+
+    .avatar-node {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .avatar-node img {
+      width: 62px;
+      height: 62px;
+      border-radius: 50%;
+      border: 3px solid #ff6584;
+      background: #fff;
+      object-fit: cover;
+      box-shadow: 0 4px 10px rgba(255, 101, 132, 0.25);
+    }
+
+    .pulse-line {
+      flex: 1;
+      height: 2px;
+      background: repeating-linear-gradient(90deg, #ff6584 0, #ff6584 6px, transparent 6px, transparent 12px);
+      position: relative;
+      margin: 0 12px;
+    }
+
+    .pulse-heart {
+      position: absolute;
+      top: -11px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 1.1rem;
+      animation: heartbeat 1.2s infinite;
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: translateX(-50%) scale(1); }
+      50% { transform: translateX(-50%) scale(1.3); }
+    }
+
+    .gif-container {
+      margin: 10px 0;
+    }
+
+    .gif-container img {
+      width: 190px;
+      max-width: 100%;
+      height: auto;
+      border-radius: 20px;
+      box-shadow: 0 8px 18px rgba(116, 42, 58, 0.12);
+    }
+
+    .music-player {
+      background: linear-gradient(135deg, #fff5f7, #ffe5ec);
+      border: 2px solid #ffccd8;
+      border-radius: 22px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .vinyl {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: radial-gradient(circle, #333 30%, #111 60%, #444 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 0.9rem;
+      border: 2px solid #ff7b99;
+      animation: spin 3.5s linear infinite paused;
+      flex-shrink: 0;
+    }
+
+    .vinyl.spinning {
+      animation-play-state: running;
+    }
+
+    @keyframes spin {
+      100% { transform: rotate(360deg); }
+    }
+
+    .song-details {
+      flex: 1;
+      text-align: left;
+    }
+
+    .song-title {
+      font-weight: 800;
+      font-size: 0.95rem;
+      color: #b31d45;
+    }
+
+    .song-artist {
+      font-size: 0.78rem;
+      color: #7a3a49;
+    }
+
+    .music-btn {
+      background: #ff527b;
+      border: none;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      color: white;
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(255, 82, 123, 0.35);
+      transition: transform 0.2s;
+    }
+
+    .music-btn:hover {
+      transform: scale(1.08);
+    }
+
+    .letter-card {
+      text-align: left;
+      line-height: 1.7;
+      font-size: 0.97rem;
+      color: #551d28;
+    }
+
+    .letter-card p {
+      margin-bottom: 12px;
+    }
+
+    .letter-highlight {
+      background: #ffe3e9;
+      padding: 10px 14px;
+      border-radius: 14px;
+      border-left: 4px solid #ff477e;
+      font-weight: 600;
+      font-size: 0.92rem;
+      margin: 12px 0;
+    }
+
+    .care-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 10px;
+      margin-top: 12px;
+    }
+
+    .care-item {
+      background: #fff;
+      border: 1.5px solid #ffccd7;
+      border-radius: 16px;
+      padding: 12px 10px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: #9e2a44;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      box-shadow: 0 4px 8px rgba(255, 120, 150, 0.08);
+    }
+
+    .care-icon {
+      font-size: 1.4rem;
+    }
+
+    .shayari-box {
+      background: #fff0f3;
+      border-radius: 20px;
+      padding: 18px 14px;
+      border: 1px dashed #ff8aa6;
+      position: relative;
+      min-height: 110px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .shayari-text {
+      font-family: 'Caveat', cursive;
+      font-size: 1.35rem;
+      line-height: 1.5;
+      color: #a81c43;
+      white-space: pre-line;
+      text-align: center;
+    }
+
+    .refresh-btn {
+      margin-top: 12px;
+      background: #fff;
+      border: 1.5px solid #ff7092;
+      color: #d82b58;
+      font-size: 0.85rem;
+      font-weight: 800;
+      padding: 8px 16px;
+      border-radius: 30px;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      box-shadow: 0 4px 10px rgba(255, 112, 146, 0.15);
+      transition: 0.2s ease;
+    }
+
+    .refresh-btn:hover {
+      background: #ff527b;
+      color: #fff;
+    }
+
+    .interactive-zone {
+      position: relative;
+      padding: 24px 14px 34px;
+    }
+
+    .btn-wrap {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 16px;
+      margin-top: 20px;
+      position: relative;
+      min-height: 70px;
+    }
+
+    .yes-btn {
+      background: linear-gradient(135deg, #2ecc71, #27ae60);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 1.05rem;
+      font-weight: 800;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 6px 18px rgba(46, 204, 113, 0.35);
+      transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 2;
+    }
+
+    .no-btn {
+      background: #e74c3c;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 6px 16px rgba(231, 76, 60, 0.25);
+      transition: 0.15s ease;
+      position: relative;
+      z-index: 3;
+    }
+
+    .plea-bubble {
+      font-size: 0.85rem;
+      color: #b02348;
+      font-weight: 700;
+      margin-top: 8px;
+      min-height: 20px;
+    }
+
+    .celebration-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.65);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .celebration-modal.active {
+      display: flex;
+    }
+
+    .modal-box {
+      background: #fff;
+      border-radius: 28px;
+      padding: 26px 20px;
+      max-width: 440px;
+      width: 100%;
+      text-align: center;
+      border: 3px solid #ff6584;
+      animation: popIn 0.35s ease;
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.7); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .modal-box img {
+      width: 150px;
+      border-radius: 18px;
+      margin: 12px 0;
+    }
+
+    .close-btn {
+      background: #ff527b;
+      color: white;
+      border: none;
+      padding: 10px 22px;
+      font-weight: 800;
+      font-size: 0.95rem;
+      border-radius: 30px;
+      cursor: pointer;
+      margin-top: 12px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="heart-bg" id="heartBg"></div>
+
+  <div class="container">
+    
+    <div class="card">
+      <div class="distance-badge">
+        <span>📍 Doori kitni bhi ho</span> • <span>Dil se hamesha paas ❤️</span>
+      </div>
+
+      <h1 style="margin-top: 14px;">I Am Really Sorry,<br>Mera Betuu 🥺</h1>
+      <p class="subtitle">Aapka bacha sach me bohot sharminda hai...</p>
+
+      <div class="distance-bridge">
+        <div class="avatar-node">
+          <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExbnZuejRua211aXpsZTN1eTVjMmRzNXpnM2R2MHZ4cWc3YnZ3cG03NyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/MDJ9IbxxvDUQM/giphy.gif" alt="Me">
+          <span>Aapka Pagal</span>
+        </div>
+        <div class="pulse-line">
+          <div class="pulse-heart">💖</div>
+        </div>
+        <div class="avatar-node">
+          <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExcWc1bWp0b3E4ZHNlcjNrbTBicHRrOG53czc3eG05Z2Zld3BscTFmYyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/L3zLSJUxuX0RS/giphy.gif" alt="Mera Betuu">
+          <span>Mera Betuu 👑</span>
+        </div>
+      </div>
+
+      <div class="gif-container">
+        <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExMjR6c3lyMXhkdnR4b3MxeHp1dnRhODJ6bWdzaHRuNmpjdWRucnppdSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/L95W4wvxxn0Gzn5hhE/giphy.gif" alt="Sad crying cat">
+      </div>
+      <p style="font-size: 0.85rem; font-weight: 700; color: #a12b48;">"Mujhe maaf kardo na mera bacha..."</p>
+    </div>
+
+    <div class="music-player">
+      <div class="vinyl" id="vinyl">🎵</div>
+      <div class="song-details">
+        <div class="song-title">Thinking Out Loud (Lullaby Chords)</div>
+        <div class="song-artist">Ed Sheeran • For Mera Betuu</div>
+      </div>
+      <button class="music-btn" id="playBtn" onclick="toggleMusic()">▶</button>
+    </div>
+
+    <div class="card letter-card">
+      <h2 style="font-size: 1.35rem; color: #c42750; font-family: 'Rozha One', serif; margin-bottom: 12px; text-align: center;">
+        A Letter From My Heart 💌
+      </h2>
+      <p>
+        <strong>Mera Pyaara Betuu,</strong>
+      </p>
+      <p>
+        Mujhe pata hai aapke periods chal rahe hain aur aapka pet itna zyada dard kar raha hai... Aur main itna bada careless nikla ki maine aapse ye bhi nahi pucha ki <em>"Aap kaise ho? Sab theek hai na?"</em>
+      </p>
+      
+      <div class="letter-highlight">
+        💔 Sabse zyada dard is baat ka hai ki hum <strong>Long Distance</strong> me hain. Main chah kar bhi turant aapse milkar aapka sar nahi sehla sakta ya warm water bag laakar nahi de sakta... Aur upar se maine laparwahi kardi.
+      </div>
+
+      <p>
+        Gussa mat ho mera bacha 🥺... Main sach me dil se bohot pachtawa mehsoos kar raha hoon. 
+      </p>
+      <p>
+        Aainda se main poora dhyan rakhunga. Phone par hamesha aapke paas rahunga, har pal aapka khayal rakhunga, aur aisi galti kabhi nahi dohraunga. Aapka ye bacha aapse bohot pyaar karta hai.
+      </p>
+
+      <div style="margin-top: 15px;">
+        <p style="font-weight: 800; color: #9c2543; font-size: 0.95rem; text-align: center; margin-bottom: 6px;">
+          Distance Care Promises for Betuu 🌸
+        </p>
+        <div class="care-grid">
+          <div class="care-item"><span class="care-icon">📞</span><span>Call pe paas rahunga</span></div>
+          <div class="care-item"><span class="care-icon">🗓️</span><span>Date yaad rakhunga</span></div>
+          <div class="care-item"><span class="care-icon">🍫</span><span>Virtual Sweet Treats</span></div>
+          <div class="care-item"><span class="care-icon">🫂</span><span>Dher saare tight hugs</span></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2 style="font-size: 1.25rem; color: #c42750; margin-bottom: 12px; font-weight: 800;">
+        Pyaar Bhari Shayaris 💖
+      </h2>
+      
+      <div class="shayari-box">
+        <div class="shayari-text" id="shayariDisplay">
+          "Door hoon aapse par dil paas hai mera,<br>
+          Aapke har ik dard pe ehsaas hai mera.<br>
+          Maaf kar do na apne is bache ko,<br>
+          Aapke bina bechain har saans hai mera."
+        </div>
+      </div>
+
+      <button class="refresh-btn" onclick="nextShayari()">
+        <span>Next Shayari Suno</span> 🌸
+      </button>
+    </div>
+
+    <div class="card interactive-zone">
+      <h2 style="font-size: 1.35rem; color: #c42750; font-family: 'Rozha One', serif;">
+        Will You Forgive Your Dumbo? 🥺
+      </h2>
+      <p style="font-size: 0.88rem; color: #7e2f41; margin-top: 4px;">
+        Gussa chhod do na mera pyara bacha...
+      </p>
+
+      <div class="btn-wrap">
+        <button class="yes-btn" id="yesBtn" onclick="celebrateForgiveness()">
+          Haan, Maaf Kiya! ❤️
+        </button>
+        <button class="no-btn" id="noBtn" onmouseover="dodgeBtn()" onclick="dodgeBtn()">
+          Nahi! 😤
+        </button>
+      </div>
+
+      <div class="plea-bubble" id="pleaText"></div>
+    </div>
+
+  </div>
+
+  <div class="celebration-modal" id="modal">
+    <div class="modal-box">
+      <h2 style="color: #e63963; font-family: 'Rozha One', serif; font-size: 1.6rem;">Yayyy! Thank You Mera Betuu! 🥳❤️</h2>
+      <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExajlsM2N5Z254Z2QyM2g3NWp3b3Z5b2tvcWphNnl2czlhNjhuNWF0ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/k95h0icLqPPajSDGYo/giphy.gif" alt="Cuddle bear">
+      <p style="color: #63202e; font-size: 0.95rem; line-height: 1.6; font-weight: 600;">
+        Mera pyara bacha man gaya! Ab jaldi se aaram karo, dher sara paani piyo, dawai le lo aur rest karo.<br>
+        Main hamesha aapke sath call par hoon. I Love You so so much! 🫂✨
+      </p>
+      <button class="close-btn" onclick="closeModal()">Bohot Sara Pyaar Love You ❤️</button>
+    </div>
+  </div>
+
+  <script>
+    function createFloatingHearts() {
+      const container = document.getElementById('heartBg');
+      const hearts = ['❤️', '💖', '🌸', '✨', '💕', '🧸'];
+      for (let i = 0; i < 18; i++) {
+        const span = document.createElement('span');
+        span.className = 'floating-heart';
+        span.innerText = hearts[Math.floor(Math.random() * hearts.length)];
+        span.style.left = Math.random() * 95 + 'vw';
+        span.style.fontSize = (Math.random() * 16 + 14) + 'px';
+        span.style.animationDuration = (Math.random() * 5 + 6) + 's';
+        span.style.animationDelay = (Math.random() * 5) + 's';
+        container.appendChild(span);
+      }
+    }
+    createFloatingHearts();
+
+    let audioCtx = null;
+    let isPlaying = false;
+    let timerId = null;
+
+    const chords = [
+      [146.83, 220.00, 293.66, 369.99],
+      [185.00, 220.00, 293.66, 369.99],
+      [196.00, 246.94, 293.66, 392.00],
+      [220.00, 277.18, 329.63, 440.00]
+    ];
+
+    function playPluck(freq, startTime) {
+      if (!audioCtx) return;
+      const osc = audioCtx.createOscillator();
+      const gain = audioCtx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, startTime);
+      gain.gain.setValueAtTime(0.001, startTime);
+      gain.gain.exponentialRampToValueAtTime(0.12, startTime + 0.04);
+      gain.gain.exponentialRampToValueAtTime(0.0001, startTime + 1.2);
+      osc.connect(gain);
+      gain.connect(audioCtx.destination);
+      osc.start(startTime);
+      osc.stop(startTime + 1.2);
+    }
+
+    function scheduleMusic() {
+      if (!isPlaying) return;
+      let now = audioCtx.currentTime;
+      let step = 0;
+
+      function playLoop() {
+        if (!isPlaying) return;
+        const currentChord = chords[step % chords.length];
+        currentChord.forEach((freq, idx) => {
+          playPluck(freq, audioCtx.currentTime + (idx * 0.1));
+        });
+        step++;
+        timerId = setTimeout(playLoop, 1100);
+      }
+      playLoop();
+    }
+
+    function toggleMusic() {
+      const btn = document.getElementById('playBtn');
+      const vinyl = document.getElementById('vinyl');
+
+      if (!audioCtx) {
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      }
+
+      if (audioCtx.state === 'suspended') {
+        audioCtx.resume();
+      }
+
+      if (isPlaying) {
+        isPlaying = false;
+        clearTimeout(timerId);
+        btn.innerText = '▶';
+        vinyl.classList.remove('spinning');
+      } else {
+        isPlaying = true;
+        btn.innerText = '❚❚';
+        vinyl.classList.add('spinning');
+        scheduleMusic();
+      }
+    }
+
+    const shayaris = [
+      `"Door hoon aapse par dil paas hai mera,\nAapke har ik dard pe ehsaas hai mera.\nMaaf kar do na apne is bache ko,\nAapke bina bechain har saans hai mera."`,
+      `"Aapko dard mein dekh kar dil rota hai,\nDoor reh kar ye ehsaas aur gehra hota hai.\nGussa mat ho mere pyare betuu,\nAapke bina mera har lamha adhoora hota hai."`,
+      `"Pata hai galti bohot badi ho gayi mujhse,\nPar jaan basti hai meri sirf aapse.\nAainda pura khayal rakhunga bacha,\nChalo muskura do ab apne is pagle ke waste."`,
+      `"Dard aapko ho toh taqleef mujhe hoti hai,\nAap naraz ho toh aankhein meri roti hain.\nKareeb nahi toh kya hua mera betuu,\nMeri har dua aapki hansi ke sath soti hai."`,
+      `"Na gussa kijiye na yun sataaiye,\nApne is bache ko gale se lagaaiye.\nHar period date ka ab main dhyan rakhunga,\nBas ik pyaari si smile se maaf kar jaaiye."`
+    ];
+
+    let currentShayariIdx = 0;
+    function nextShayari() {
+      currentShayariIdx = (currentShayariIdx + 1) % shayaris.length;
+      document.getElementById('shayariDisplay').innerHTML = shayaris[currentShayariIdx].replace(/\n/g, '<br>');
+    }
+
+    let noClickCount = 0;
+    const pleaTexts = [
+      "Arey aise mat karo na mera bacha 🥺",
+      "Pet dard me aur gussa mat karo na betuu...",
+      "Dekho kitna sorry bol raha hoon... Maaf kardo!",
+      "Aainda se har second khayal rakhunga, pakka promise!",
+      "Ab toh green button daba do mera pyara betuu! ❤️"
+    ];
+
+    function dodgeBtn() {
+      const noBtn = document.getElementById('noBtn');
+      const yesBtn = document.getElementById('yesBtn');
+      const plea = document.getElementById('pleaText');
+
+      noClickCount++;
+      const randomX = (Math.random() - 0.5) * 160;
+      const randomY = (Math.random() - 0.5) * 100;
+      noBtn.style.transform = `translate(${randomX}px, ${randomY}px)`;
+
+      const newScale = 1 + (noClickCount * 0.12);
+      yesBtn.style.transform = `scale(${newScale})`;
+
+      const textIndex = Math.min(noClickCount - 1, pleaTexts.length - 1);
+      plea.innerText = pleaTexts[textIndex];
+    }
+
+    function celebrateForgiveness() {
+      confetti({
+        particleCount: 120,
+        spread: 80,
+        origin: { y: 0.6 }
+      });
+
+      setTimeout(() => {
+        confetti({
+          particleCount: 80,
+          angle: 60,
+          spread: 60,
+          origin: { x: 0 }
+        });
+        confetti({
+          particleCount: 80,
+          angle: 120,
+          spread: 60,
+          origin: { x: 1 }
+        });
+      }, 300);
+
+      document.getElementById('modal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('modal').classList.remove('active');
+    }
+  </script>
+</body>
+</html>
